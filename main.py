@@ -1,3 +1,7 @@
+from collections import defaultdict
+import nltk
+vazias = nltk.corpus.stopwords.words('portuguese')
+
 def ler(nome_arq):  ## Aqui é feito a leitura do corpus
     arquivo = open(nome_arq, 'r', encoding='utf-8')
     conteudo_arq = arquivo.read()
@@ -42,4 +46,15 @@ print(len(corpus_limpo))
 
 ############################################
 
-# para fins didáticos, a leitura do livro foi feito até a página 82.
+# para fins didáticos, a leitura do livro foi feito até a página 87.
+
+def ocorrencias(lista_palavras):  ## Aqui é feita a contagem das ocorrências de cada palavra no corpus 
+    dicionario = defaultdict(int)
+    for p in lista_palavras:
+        dicionario[p] += 1
+    return dicionario
+
+dic = ocorrencias(corpus_limpo)  ## Aqui é feita a chamada da função de contagem, imprimindo as 100 palavras mais frequentes
+mf = sorted(dic.items(), key=lambda tupla:tupla[1], reverse=True) [:100]
+for palavra, n in mf:
+    print(palavra, '\t', n)
